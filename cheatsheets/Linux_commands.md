@@ -86,6 +86,7 @@ command_name --help
 ```bash
 cd /          # Go to root directory
 cd            # Go to home directory
+cd -          # Switches back to the last directory you visited
 pwd           # Show current directory
 whoami        # Show current user
 ```
@@ -636,6 +637,7 @@ cd /          # Go to root directory
 cd            # Go to home directory
 pwd           # Show current directory
 whoami        # Show current user
+who           # Show active users (logged-in)
 ```
 
 ```bash
@@ -703,8 +705,10 @@ command < input.txt           # Use a file as input for the command
 > **Pipes (`|`)** let you pass the output of one command directly as input to another — great for chaining commands and filtering output.
 
 ```bash
-ls -ltr | more                # View long listing one screen at a time
-ls -l | tail                  # Show only the last lines of output
+ls -ltr | more                       # View long listing one screen at a time
+ls -l | tail                         # Show only the last lines of output
+mkdir new_folder && cd new_folder    # Run the second command only if the first succeeds
+ls my_folder || echo "Folder found"  # Run the second command only if the first fails
 ```
 
 ---

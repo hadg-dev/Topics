@@ -27,6 +27,30 @@ ip link show
 ```
 
 
+### What is a bridge ?
+
+A **network bridge** is a software-based “virtual switch” that sits between physical and virtual network interfaces, allowing them to act as if they’re on the same Layer-2 network segment. In Linux (and Proxmox), a bridge:
+
+- **Aggregates ports**  
+  You add one or more physical NICs (e.g. `enp1s0`) and/or virtual NICs (VMs or containers) to the bridge (e.g. `vmbr0`).
+
+- **Forwards Ethernet frames**  
+  It inspects incoming frames’ MAC addresses and forwards them only to the port where the destination MAC lives — or floods them if unknown.
+
+- **Publishes a single IP**  
+  The host assigns its own management IP to the bridge device (`vmbr0`), not to the individual physical NICs.
+
+- **Enables VMs/CTs to appear on your LAN**  
+  Guests plugged into the bridge get IPs from the same DHCP server or static pool as the host and other physical devices.
+
+#### Why Use a Bridge?
+- Lets virtual machines share your LAN without NAT.  
+- Simplifies network topology: everything lives on one broadcast domain.  
+- Mirrors the behavior of a physical Ethernet switch in software.
+
+
+
+
 ## Local Network
 
 Physical interfaces of my home box:
@@ -209,6 +233,84 @@ Add a reservation, that is:
 - MAC addressof the device
 - static IP address (eg. 192.168.1.50) outside of your DHCP pool
 
+#### How to find MAC addresses of your devices on your LAN ?
+First, find the LAN subnet
+```bash
+# find your LAN's subnet
+ip route
+
+# scan you subnet using your selected connexion type ethernet/wifi
+ arp-scan --interface=en1ps0 192.168.1.0/24
+
+root@hadg-dev:~# arp-scan --interface=vmbr0 192.168.1.0/24
+# Interface: vmbr0, type: EN10MB, MAC: 68:1d:ef:31:fa:0e, IPv4: 192.168.1.171
+# Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
+# 192.168.1.23    d0:5a:00:a6:74:2c       Technicolor CH USA Inc.
+# 192.168.1.57    70:ee:50:ba:40:62       Netatmo
+# 192.168.1.65    84:1e:a3:e2:5e:68       Sagemcom Broadband SAS
+# 192.168.1.119   d4:54:8b:e2:df:06       Intel Corporate
+# 192.168.1.254   48:29:52:d3:3d:95       Sagemcom Broadband SAS
+# 192.168.1.91    ac:fa:e4:ec:bb:da       (Unknown)
+# 192.168.1.166   52:32:f8:22:18:cb       (Unknown: locally administered)
+```
+
+#### Why `arp-scan` on Ethernet Only Sees Wired Hosts ?
+
+`arp-scan` works at **Layer 2** (Ethernet) and only discovers devices that reply to ARP on the same physical segment.  If your access point is isolating wireless clients or not bridging ARP to the wired side, you won’t see your Wi-Fi devices with:
+
+```bash
+sudo arp-scan --interface=vmbr0 192.168.1.0/24
+```
+Notice your printer (on Wi-Fi) doesn’t show up here. To do so, you need to scan via a wifi-interface like
+```bash
+arp-scan --interface=wlan0 192.168.1.0/24
+```
+
+```bash
+root@hadg-dev:~# nmap -sn 192.168.1.0/24
+# Starting Nmap 7.93 ( https://nmap.org ) at 2025-07-11 13:34 CEST
+# Nmap scan report for Bbox-TV-001.lan (192.168.1.23)
+# Host is up (0.0015s latency).
+# MAC Address: D0:5A:00:A6:74:2C (Technicolor CH USA)
+# Nmap scan report for Host-001.lan (192.168.1.57)
+# Host is up (0.017s latency).
+# MAC Address: 70:EE:50:BA:40:62 (Netatmo)
+# Nmap scan report for Repeteur-Bbox-Wi-Fi-6-5E68.lan (192.168.1.65)
+# Host is up (0.014s latency).
+# MAC Address: 84:1E:A3:E2:5E:68 (Sagemcom Broadband SAS)
+# Nmap scan report for Host-002.lan (192.168.1.91)
+# Host is up (0.20s latency).
+# MAC Address: AC:FA:E4:EC:BB:DA (Unknown)
+# Nmap scan report for FR-L5492964.lan (192.168.1.119)
+# Host is up (0.11s latency).
+# MAC Address: D4:54:8B:E2:DF:06 (Intel Corporate)
+# Nmap scan report for Host-003.lan (192.168.1.166)
+# Host is up (0.12s latency).
+# MAC Address: 52:32:F8:22:18:CB (Unknown)
+# Nmap scan report for bbox.lan (192.168.1.254)
+# Host is up (0.00061s latency).
+# MAC Address: 48:29:52:D3:3D:95 (Sagemcom Broadband SAS)
+# Nmap scan report for hadg-dev.lan (192.168.1.171)
+# Host is up.
+# Nmap done: 256 IP addresses (8 hosts up) scanned in 3.25 seconds``` 
+``` 
+
+| Hostname                         | IP Address       | MAC Address            | Description                                |
+|----------------------------------|------------------|------------------------|--------------------------------------------|
+| Bbox-TV-001.lan                  | 192.168.1.23     | D0:5A:00:A6:74:2C      | ISP’s set-top TV box                       |
+| Host-001.lan                     | 192.168.1.57     | 70:EE:50:BA:40:62      | Netatmo IoT device (e.g. weather station)  |
+| Repeteur-Bbox-Wi-Fi-6-5E68.lan   | 192.168.1.65     | 84:1E:A3:E2:5E:68      | Wi-Fi repeater/extender                    |
+| Host-002.lan                     | 192.168.1.91     | AC:FA:E4:EC:BB:DA      | Unknown wired client                       |
+| FR-L5492964.lan                  | 192.168.1.119    | D4:54:8B:E2:DF:06      | Intel-based device (PC/laptop)             |
+| Host-003.lan                     | 192.168.1.166    | 52:32:F8:22:18:CB      | Unknown device (locally administered MAC)  |
+| bbox.lan                         | 192.168.1.254    | 48:29:52:D3:3D:95      | Home router / DHCP server                  |
+| hadg-dev.lan                     | 192.168.1.171    | 68:1D:EF:31:FA:0E      | Your Proxmox VE host (vmbr0 management IP) |
+
+
+
+#### Another solution: check your routers UI
+Most home routers show all attached clients—wired and wireless—in their web UI under DHCP leases or Connected Devices. That is often the easiest way to see every device, including printers on Wi-Fi.
+
 
 
 ### Find your DHCP pool range
@@ -217,3 +319,20 @@ In a browser, go to your gateway IP (from $ ip route default):
 ```
 http://192.168.1.254
 ```
+
+
+
+### Find your DNS Server(s) IP address
+```bash
+cat /etc/resolv.conf
+# domain lan
+# search lan
+# nameserver 192.168.1.254
+```
+you can add DNS servers like 9.9.9.9 or Google
+
+
+
+# Storage
+
+
