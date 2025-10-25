@@ -2,6 +2,7 @@
 # 📚 Table of Contents
 
 - [1 Linux Bash Commands Cheat Sheet](#linux-bash-commands-cheat-sheet)
+  - [1.0 ℹ️ Power DevOps Admin](#become-power-user)
   - [1.1 ℹ️ Get Command Help](#ℹ-get-command-help)
   - [1.2 🌍 Navigating the System](#navigating-the-system)
   - [1.3 📂 File and Directory Management](#file-and-directory-management)
@@ -69,6 +70,62 @@
 
 ---
 
+<a id="become-power-user"></a>
+## 1.0 Power DevOps Admin [🔝](#table-of-contents)
+
+```bash
+ls *.log | xargs rm         # takes all the .log files and gives them to rm for deletion
+make build > build.log      # redirect output to build.log
+make build | tee build.log  # redirecting output (>) hides it from your screen. tee lets you see it and save it at the same time.
+fc                          # opens your last command in your editor (vi). Or Ctrl + x + e
+Ctrl+w / Ctrl+u             # deletes word / delete everything before the cursor
+Ctrl + l                    # clear terminal like $ clear
+Ctrl u / Ctrl k             # clear the line from current cursor position to beginning/end of line.
+
+$ echo world world          # re-runs your last command but replaces all instances of a word.
+$ !!:gs/world/universe/
+universe universe
+
+df -h       # Shows free space in human-readable format
+du -sh *    # Shows sizes of folders/files in current directory
+
+
+lsof -i :8080 # f you’ve ever run into “port already in use,” this tells you which process is holding it. Now you know which app to kill or restart.
+
+nc -zv google.com 443 # test if a port is open
+
+cd -                  # jump back to your last working directory
+
+htop                  # Real-time, interactive system monitoring without feeling like you’re reading The Matrix.
+
+exa -l --git          # Better colors, Git status integration, and icons — everything ls should have been
+
+
+http GET https://url  #  Forget curl headaches. httpie makes API testing readable and fun.
+
+git diff | delta      # Makes git diffs beautiful with colors, syntax highlighting, and better layouts.
+
+
+glances               # Cross-platform system monitoring with network, CPU, memory — all in one dashboard.
+
+# ALIAS
+# In bash, you can explode an alias into the full command with ctrl + alt + e. In zsh you can do the same with ctrl + x; a while the cursor is in or next to the alias string
+
+
+
+```
+
+---
+
+
+
+
+
+
+
+
+
+
 <a id="ℹ-get-command-help"></a>
 ## 1.1 ℹ️ Get Command Help [🔝](#table-of-contents)
 
@@ -92,9 +149,10 @@ whoami        # Show current user
 ```
 
 ```bash
-ls -l         # List with details
-ls -ltr       # List by time, reverse
-ls -la        # Include hidden files
+ls -l                 # List with details
+ls -ltr               # List by time, reverse
+ls -la                # Include hidden files
+ls *.log | xargs rm   # takes all the .log files and gives them to rm for deletion
 ```
 
 ---
@@ -145,7 +203,9 @@ ls -li                        # List with inode numbers
 ```bash
 command > output.txt          # Redirect output (overwrite)
 command >> output.txt         # Redirect output (append)
-command < input.txt           # Redirect input
+command < input.txt           # Redirect input 
+make build | tee build.log    # Save output while still seeing it; watch the build output live, and build.log is saved
+fc                            #  opens your last command in your editor (vi): for long commands
 ```
 
 ---
